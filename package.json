@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "ts-node": "ts-node",
-    "calculateBmi":"ts-node bmiCalculator.ts",
+    "calculateBmi": "ts-node bmiCalculator.ts",
+    "calculateExercises": "ts-node exerciseCalculator.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yunpeng Dong",
   "license": "MIT",
   "devDependencies": {
+    "prettier": "3.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }
