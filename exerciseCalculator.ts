@@ -33,6 +33,7 @@ const giveRating = (average: number, target: number): number => {
   } else if (average >= target) {
     return 2;
   }
+  return 0;
 };
 
 const giveRatingDescription = (rating: number): string => {
@@ -74,15 +75,18 @@ const calculateExercises = (
   };
 };
 
-try {
-  const { target, exerciseHours } = parseArguments(process.argv);
-  console.log(calculateExercises(exerciseHours, target));
-} catch (error: unknown) {
-  let errorMessage = "Something bad happened.";
-  if (error instanceof Error) {
-    errorMessage += "Error: " + error.message;
+
+if (require.main === module) {
+  try {
+    const { target, exerciseHours } = parseArguments(process.argv);
+    console.log(calculateExercises(exerciseHours, target));
+  } catch (error: unknown) {
+    let errorMessage = "Something bad happened.";
+    if (error instanceof Error) {
+      errorMessage += "Error: " + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }
 
-export {};
+export { ExercisesParameters, calculateExercises};
