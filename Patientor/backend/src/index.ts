@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import diagnosesRouter from './routes/diagnoses';
+import patientsRouter from './routes/patients';
 const app = express();
 app.use(express.json());
  
@@ -14,6 +15,8 @@ app.get('/api/ping', (_req, res) => {
 
 // Create a type Diagnosis and use it to create endpoint /api/diagnoses for fetching all diagnoses with HTTP GET.
 app.use('/api/diagnoses', diagnosesRouter);
+
+app.use('/api/patients', patientsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
