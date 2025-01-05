@@ -3,7 +3,7 @@ interface CourseName {
 }
 
 const Header = (prop: CourseName) => {
-  return <h1>{prop.name}</h1>
-}
+  return <h1>{prop.name}</h1>;
+};
 
 export default Header;
