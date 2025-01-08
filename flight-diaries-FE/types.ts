@@ -1,16 +1,16 @@
 export enum Weather {
-  Sunny = 'sunny',
-  Rain = 'rainy',
-  Cloudy = 'cloudy',
-  Stormy = 'stormy',
-  Windy = 'windy',
+  Sunny = "sunny",
+  Rain = "rainy",
+  Cloudy = "cloudy",
+  Stormy = "stormy",
+  Windy = "windy",
 }
 
 export enum Visibility {
-  Great = 'great',
-  Good = 'good',
-  Ok = 'ok',
-  Poor = 'poor',
+  Great = "great",
+  Good = "good",
+  Ok = "ok",
+  Poor = "poor",
 }
 
 export interface DiaryEntry {
@@ -18,11 +18,11 @@ export interface DiaryEntry {
   date: string;
   weather: Weather;
   visibility: Visibility;
-  comment?: string
+  comment?: string;
 }
 
-export type NonSensitiveEntry = Omit<DiaryEntry, 'comment'>;
-export type NewDiaryEntry = Omit<DiaryEntry, 'id'>;
+export type NonSensitiveEntry = Omit<DiaryEntry, "comment">;
+export type NewDiaryEntry = Omit<DiaryEntry, "id">;
 
 export interface ValidationError {
   path: string[];

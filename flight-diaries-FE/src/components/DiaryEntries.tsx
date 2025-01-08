@@ -1,9 +1,9 @@
 import { DiaryEntry } from "../../types";
 
-const DiaryEntries = ({diaries}: {diaries: DiaryEntry[]}) => {
+const DiaryEntries = ({ diaries }: { diaries: DiaryEntry[] }) => {
   return (
     <>
-    {diaries.map((diary) => (
+      {diaries.map((diary) => (
         <div key={diary.id}>
           <h3>{diary.date}</h3>
           <p>
@@ -19,8 +19,8 @@ const DiaryEntries = ({diaries}: {diaries: DiaryEntry[]}) => {
           </p>
         </div>
       ))}
-      </>
-  )
-}
+    </>
+  );
+};
 
-export default DiaryEntries
+export default DiaryEntries;

@@ -1,12 +1,8 @@
-const Notification = ({notification}: {notification: string}) => {
+const Notification = ({ notification }: { notification: string }) => {
   if (notification) {
-    return (
-      <div style={{color: 'red'}}>
-        {notification}
-      </div>
-    )
+    return <div style={{ color: "red" }}>{notification}</div>;
   }
-  return null
-}
+  return null;
+};
 
-export default Notification
+export default Notification;
