@@ -8,7 +8,7 @@ export const getDiaries = async () => {
   return response.data
 }
 
-export const addDiary = async (newDiary) => {
+export const addDiary = async (newDiary: NewDiaryEntry) => {
   const response = await axios.post(baseUrl, newDiary)
   return response.data
 }

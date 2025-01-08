@@ -23,3 +23,8 @@ export interface DiaryEntry {
 
 export type NonSensitiveEntry = Omit<DiaryEntry, 'comment'>;
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>;
+
+export interface ValidationError {
+  path: string[];
+  message: string;
+}
