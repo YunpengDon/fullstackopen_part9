@@ -1,14 +1,19 @@
 import Typography from "@mui/material/Typography";
-
+import { useContext } from "react";
 import { Diagnosis, Entry } from "../../types";
+import { DiagnosesContext } from "../../App";
 
 const Entries = ({ entries }: { entries: Entry[] }) => {
+  const diagnoses = useContext(DiagnosesContext);
+
   const diagnoseCodeDisplay = (diagnoseCode: Array<Diagnosis["code"]>) => {
     if (diagnoseCode.length !== 0) {
       return (
         <ul>
           {diagnoseCode.map((code) => (
-            <li key={code}>{code}</li>
+            <li key={code}>
+              {code} {diagnoses.find((d) => d.code === code)?.name}
+            </li>
           ))}
         </ul>
       );
