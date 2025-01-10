@@ -1,5 +1,5 @@
 import { v1 as uuid, UUIDTypes } from "uuid";
-import patientsData from "../../data/patients";
+import patientsData from "../../data/patients-full";
 import type {
   Patient,
   NonSensitivePatientEntry,
