@@ -44,7 +44,6 @@ router.get("/:id", (req, res: Response<Patient>, next: NextFunction) => {
   } catch (error: unknown) {
     next(error);
   }
-  
 });
 
 router.post(

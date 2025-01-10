@@ -3,7 +3,8 @@ import Typography from "@mui/material/Typography";
 import FemaleIcon from "@mui/icons-material/Female";
 import MaleIcon from "@mui/icons-material/Male";
 
-import { Patient } from "../types";
+import { Patient } from "../../types";
+import Entries from "./Entries";
 
 const PatientDetail = ({ patient }: { patient: Patient | null }) => {
   const getGenderIcon = (gender: string) => {
@@ -29,6 +30,7 @@ const PatientDetail = ({ patient }: { patient: Patient | null }) => {
         <Typography variant="body1">
           occupation: {patient.occupation}
         </Typography>
+        <Entries entries={patient.entries} />
       </Box>
     );
   } else {

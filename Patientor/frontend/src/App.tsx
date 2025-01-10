@@ -8,7 +8,7 @@ import { Patient } from "./types";
 
 import patientService from "./services/patients";
 import PatientListPage from "./components/PatientListPage";
-import PatientDetail from "./components/PatientDetail";
+import PatientDetail from "./components/PatientDetails/PatientDetail";
 
 const App = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
