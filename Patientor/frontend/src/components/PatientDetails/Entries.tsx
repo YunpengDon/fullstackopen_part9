@@ -1,6 +1,7 @@
-import Typography from "@mui/material/Typography";
 import React, { useContext } from "react";
+
 import { Box, Card, CardContent } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import WorkIcon from "@mui/icons-material/Work";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
@@ -25,7 +26,11 @@ const Entries = ({ entries }: { entries: Entry[] }) => {
     }
   };
 
-  const HealthCheckRatingDisplay = ({healthRating}: {healthRating: HealthCheckRating}) => {
+  const HealthCheckRatingDisplay = ({
+    healthRating,
+  }: {
+    healthRating: HealthCheckRating;
+  }) => {
     switch (healthRating) {
       case HealthCheckRating.Healthy:
         return <FavoriteIcon color="success" />;
@@ -60,7 +65,7 @@ const Entries = ({ entries }: { entries: Entry[] }) => {
   };
 
   const HealthCheckEntryDetail = ({ entry }: { entry: Entry }) => {
-    if (entry.type === 'HealthCheck') {
+    if (entry.type === "HealthCheck") {
       return (
         <Card>
           <CardContent>
@@ -70,7 +75,7 @@ const Entries = ({ entries }: { entries: Entry[] }) => {
             <div>
               <i>{entry.description}</i>
             </div>
-            <HealthCheckRatingDisplay healthRating={entry.healthCheckRating}/>
+            <HealthCheckRatingDisplay healthRating={entry.healthCheckRating} />
             <div>diagnose by {entry.specialist}</div>
             {entry.diagnosisCodes
               ? diagnoseCodeDisplay(entry.diagnosisCodes)

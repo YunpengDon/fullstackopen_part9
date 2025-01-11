@@ -3,12 +3,14 @@ import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 
 import type {
+  NewEntry,
   NewPatientEntry,
   NonSensitivePatientEntry,
   Patient,
 } from "../types";
 import patientsService from "../services/patientsService";
 import { newPatientSchema } from "../utils";
+import { UUIDTypes } from "uuid";
 
 const router = express.Router();
 
@@ -52,6 +54,25 @@ router.post(
   (req: Request<unknown, unknown, NewPatientEntry>, res: Response<Patient>) => {
     const addedEntry = patientsService.addPatient(req.body);
     res.json(addedEntry);
+  }
+);
+
+router.post(
+  "/:id/entries",
+  (
+    req: Request<{ id: UUIDTypes }, unknown, NewEntry>,
+    res,
+    next: NextFunction
+  ) => {
+    try {
+      const newPatient = patientsService.addEntry({
+        id: req.params.id,
+        entry: req.body,
+      });
+      res.json(newPatient);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 

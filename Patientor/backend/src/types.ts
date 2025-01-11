@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { newPatientSchema } from "./utils";
+import { dischargeSchema, newPatientSchema, sickLeaveSchema } from "./utils";
 
 export interface Diagnosis {
   code: string;
@@ -21,10 +21,7 @@ export interface BaseEntry {
   diagnosisCodes?: Array<Diagnosis["code"]>;
 }
 
-export interface Discharge {
-  date: string;
-  criteria: string;
-}
+type Discharge = z.infer<typeof dischargeSchema>;
 
 interface HospitalEntry extends BaseEntry {
   type: "Hospital";
@@ -43,10 +40,7 @@ interface HealthCheckEntry extends BaseEntry {
   healthCheckRating: HealthCheckRating;
 }
 
-export interface SickLeave {
-  startDate: string;
-  endDate: string;
-}
+type SickLeave = z.infer<typeof sickLeaveSchema>;
 
 interface OccupationalHealthcareEntry extends BaseEntry {
   type: "OccupationalHealthcare";
@@ -58,6 +52,12 @@ export type Entry =
   | HospitalEntry
   | OccupationalHealthcareEntry
   | HealthCheckEntry;
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
+export type NewEntry = UnionOmit<Entry, "id">;
 
 export interface Patient {
   id: string;
@@ -73,3 +73,9 @@ export type NonSensitivePatientEntry = Omit<Patient, "ssn" | "entries">;
 
 // export type NewPatientEntry = Omit<Patient, 'id'>;
 export type NewPatientEntry = z.infer<typeof newPatientSchema>;
+
+export const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
+};
