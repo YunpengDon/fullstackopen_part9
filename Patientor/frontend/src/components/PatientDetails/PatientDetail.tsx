@@ -2,35 +2,82 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FemaleIcon from "@mui/icons-material/Female";
 import MaleIcon from "@mui/icons-material/Male";
+import React, { createContext, useState } from "react";
 
-import { Patient } from "../../types";
+import { Gender, Patient } from "../../types";
+import Notification, { NotificationSchema } from "../Notification";
 import Entries from "./Entries";
+import NewHealthcareEntry from "./NewHelthcareEntry";
+
+type PatientDetailContextType = [
+  Patient,
+  React.Dispatch<React.SetStateAction<Patient>>,
+  boolean,
+  React.Dispatch<React.SetStateAction<boolean>>,
+  NotificationSchema | null,
+  React.Dispatch<React.SetStateAction<NotificationSchema | null>>
+];
+export const PatientDetailContext = createContext<PatientDetailContextType>([
+  {
+    id: "",
+    name: "",
+    dateOfBirth: "",
+    ssn: "",
+    gender: Gender.Male,
+    occupation: "",
+    entries: [],
+  },
+  () => {},
+  false,
+  () => {},
+  null,
+  () => null,
+]);
 
 const PatientDetail = ({ patient }: { patient: Patient | null }) => {
-  const getGenderIcon = (gender: string) => {
-    switch (gender.toLowerCase()) {
-      case "male":
-        return <MaleIcon />;
-      case "female":
-        return <FemaleIcon />;
-      default:
-        return gender;
-    }
-  };
-
   if (patient) {
+    const [patientDetail, setPatient] = useState(patient);
+    const [newEntryVisibility, setNewEntryVisibility] =
+      useState<boolean>(false);
+    const [notification, setNotification] = useState<NotificationSchema | null>(
+      null
+    );
+    // const PatientDetailContext = createContext([patientDetail, setPatient, newEntryVisibility, setNewEntryVisibility])
+    const context: PatientDetailContextType = [
+      patientDetail,
+      setPatient,
+      newEntryVisibility,
+      setNewEntryVisibility,
+      notification,
+      setNotification,
+    ];
+    const getGenderIcon = (gender: string) => {
+      switch (gender.toLowerCase()) {
+        case "male":
+          return <MaleIcon />;
+        case "female":
+          return <FemaleIcon />;
+        default:
+          return gender;
+      }
+    };
+
     return (
       <Box>
-        <Typography variant="h4" style={{ marginTop: "0.5em" }}>
-          {patient.name} {getGenderIcon(patient.gender)}
-        </Typography>
-        {patient.ssn ? (
-          <Typography variant="body1">ssn: {patient.ssn}</Typography>
-        ) : null}
-        <Typography variant="body1">
-          occupation: {patient.occupation}
-        </Typography>
-        <Entries entries={patient.entries} />
+        <PatientDetailContext.Provider value={context}>
+          <Typography variant="h4" style={{ marginTop: "0.5em" }}>
+            {patientDetail.name} {getGenderIcon(patientDetail.gender)}
+          </Typography>
+          {patientDetail.ssn ? (
+            <Typography variant="body1">ssn: {patientDetail.ssn}</Typography>
+          ) : null}
+          <Typography variant="body1">
+            occupation: {patientDetail.occupation}
+          </Typography>
+          <Notification notification={notification} />
+          <NewHealthcareEntry />
+          <Entries entries={patientDetail.entries} />
+        </PatientDetailContext.Provider>
       </Box>
     );
   } else {

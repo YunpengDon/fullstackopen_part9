@@ -25,13 +25,13 @@ export const parseDiagnosisCodes = (
 };
 
 export const dischargeSchema = z.object({
-  date: z.string().date(),
+  date: z.string().date(`Value of dischargeSchema incorrect: {input}`),
   criteria: z.string().min(1),
 });
 
 export const sickLeaveSchema = z.object({
-  startDate: z.string().date(),
-  endDate: z.string().date(),
+  startDate: z.string().date(`Value of sickLeave.startDate incorrect: {input}`),
+  endDate: z.string().date(`Value of sickLeave.endDate incorrect: {input}`),
 });
 
 export default toNewPatient;

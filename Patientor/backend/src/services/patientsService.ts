@@ -58,9 +58,15 @@ const addEntry = ({ id, entry }: NewEntryInput) => {
     const baseEntry: BaseEntry = {
       id: uuid(),
       diagnosisCodes: parseDiagnosisCodes(entry),
-      date: z.string().date().parse(entry.date),
-      specialist: z.string().parse(entry.specialist),
-      description: z.string().parse(entry.description),
+      date: z.string().date(`Date is invalid: ${entry.date}`).parse(entry.date),
+      specialist: z
+        .string()
+        .min(1, `Specialist is invalid: ${entry.specialist}`)
+        .parse(entry.specialist),
+      description: z
+        .string()
+        .min(1, `Description is invalid: ${entry.description}`)
+        .parse(entry.description),
     };
     switch (entry.type) {
       case "Hospital":
@@ -75,7 +81,9 @@ const addEntry = ({ id, entry }: NewEntryInput) => {
           ...baseEntry,
           type: entry.type,
           healthCheckRating: z
-            .nativeEnum(HealthCheckRating)
+            .nativeEnum(HealthCheckRating, {
+              message: `Value of healthCheckRating incorrect: ${entry.healthCheckRating}`,
+            })
             .parse(entry.healthCheckRating),
         };
         break;
@@ -98,7 +106,7 @@ const addEntry = ({ id, entry }: NewEntryInput) => {
     patientList = patientList.map((patient) =>
       patient.id === id ? newPatient : patient
     );
-    return newEntry;
+    return newPatient;
   }
   throw new Error("Error: Can't find patient by id");
 };
