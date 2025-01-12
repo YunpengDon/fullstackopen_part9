@@ -8,6 +8,7 @@ import { Gender, Patient } from "../../types";
 import Notification, { NotificationSchema } from "../Notification";
 import Entries from "./Entries";
 import NewHealthcareEntry from "./NewHelthcareEntry";
+import { Button } from "@mui/material";
 
 type PatientDetailContextType = [
   Patient,
@@ -42,7 +43,7 @@ const PatientDetail = ({ patient }: { patient: Patient | null }) => {
     const [notification, setNotification] = useState<NotificationSchema | null>(
       null
     );
-    // const PatientDetailContext = createContext([patientDetail, setPatient, newEntryVisibility, setNewEntryVisibility])
+
     const context: PatientDetailContextType = [
       patientDetail,
       setPatient,
@@ -75,7 +76,18 @@ const PatientDetail = ({ patient }: { patient: Patient | null }) => {
             occupation: {patientDetail.occupation}
           </Typography>
           <Notification notification={notification} />
-          <NewHealthcareEntry />
+          <Box marginTop="0.5em">
+            {newEntryVisibility ? (
+              <NewHealthcareEntry />
+            ) : (
+              <Button
+                variant="outlined"
+                onClick={() => setNewEntryVisibility(true)}
+              >
+                New Entry
+              </Button>
+            )}
+          </Box>
           <Entries entries={patientDetail.entries} />
         </PatientDetailContext.Provider>
       </Box>
